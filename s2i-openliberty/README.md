@@ -5,12 +5,12 @@ S2I for IBM Openliberty Java EE containers. Build on top of CentOS 7 with high c
 | Java Version | JVM                                   |
 | ------------ | ------------------------------------- |
 | 11.0.4       | HotSpot OpenJDK 64-Bit Server VM 18.9 |
-| 8            | HotSpot OpenJDK 64-Bit Server VM 18.9 |
+| 8            | HotSpot OpenJDK 64-Bit Server VM      |
 
-| Application Server | Application Server Version | Java Version | Image Tag               |
-| ------------------ | -------------------------- | ------------ | ----------------------- |
-| IBM OpenLiberty    | 19.0.0.8                   | 11.0.4       | 19.0.0.8-jdk11 / latest |
-| IBM OpenLiberty    | 19.0.0.8                   | 8            | 19.0.0.8-jdk8 / latest  |
+| Application Server | Application Server Version | Java Version | Image Tag      |
+| ------------------ | -------------------------- | ------------ | -------------- |
+| IBM OpenLiberty    | 19.0.0.8                   | 11.0.4       | 19.0.0.8-jdk11 |
+| IBM OpenLiberty    | 19.0.0.8                   | 8            | 19.0.0.8-jdk8  |
 
 ## Introduction
 
@@ -30,7 +30,7 @@ Run the following command:
 `s2i build <APP_DIR> hassenasse/s2i-openliberty:<LIBERTY_VERSION> <APP_NAME> --copy`
 
 _Example:_  
-`s2i build ~/dev/FruitApp hassenasse/s2i-openliberty:19.0.0.8 fruit-app --copy`
+`s2i build ~/dev/FruitApp hassenasse/s2i-openliberty:19.0.0.8-jdk11 fruit-app --copy`
 
 This command will create a local imagestream which can be inspected using `docker image ls`, this imagestream will have the name `<APP_NAME>`.
 
