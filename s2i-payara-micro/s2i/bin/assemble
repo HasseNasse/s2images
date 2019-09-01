@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 PAYARA_CONFIG=/tmp/src/payara
-START_COMMAND="java -jar ${BASE_DIR}/${PAYARA_JAR} --deploymentDir ${DEPLOYMENT_DIR}"
+START_COMMAND="--deploymentDir ${DEPLOYMENT_DIR}"
 
 # If the 's2i-payara-micro' assemble script is executed with the '-h' flag, print the usage.
 if [[ "$1" == "-h" ]]; then

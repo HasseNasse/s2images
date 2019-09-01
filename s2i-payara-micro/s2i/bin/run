@@ -1,2 +1,3 @@
 #!/bin/bash -e
-exec ${BASE_DIR}/startup.sh
+STARTUP_COMMAND=$(cat $BASE_DIR/startup.sh)
+exec java -jar ${BASE_DIR}/${PAYARA_JAR} ${STARTUP_COMMAND}
