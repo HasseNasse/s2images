@@ -40,10 +40,10 @@ After a successfull build, the container can be initiated using the following co
 ### 2. OpenShift Deployment
 
 Retrieve the image from hub.docker.com to your local registry:  
-`docker pull hassenasse/s2i-openliberty:latest`
+`docker pull hassenasse/s2i-openliberty:19.0.0.8-jdk11`
 
 Import the s2i image to your OpenShift / MiniShift image registry:  
-`oc import-image s2i-openliberty --from=hassenasse/s2i-openliberty:latest --confirm`
+`oc import-image s2i-openliberty --from=hassenasse/s2i-openliberty:19.0.0.8-jdk11 --confirm`
 
 Create a new openshift project:  
 `oc new-project <PROJECT_NAME>`
