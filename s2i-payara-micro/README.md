@@ -8,7 +8,7 @@ S2I for Payara Micro Java EE containers. Build on top of CentOS 7 with high conf
 
 | Application Server | Application Server Version | Image Tag         |
 |--------------------|----------------------------|-------------------|
-| Payara Micro    | Payara Micro 193                | 193 / latest |
+| Payara Micro    | 5.193                | 5.193 / latest |
 
 ## Introduction
 
