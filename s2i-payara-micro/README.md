@@ -28,7 +28,7 @@ Run the following command:
 `s2i build <APP_DIR> hassenasse/s2i-payara-micro:<LIBERTY_VERSION> <APP_NAME> --copy`
 
 _Example:_  
-`s2i build ~/dev/FruitApp hassenasse/s2i-payara-micro:19.0.0.8 fruit-app --copy`
+`s2i build ~/dev/FruitApp hassenasse/s2i-payara-micro:5.193 fruit-app --copy`
 
 This command will create a local imagestream which can be inspected using `docker image ls`, this imagestream will have the name `<APP_NAME>`.
 
