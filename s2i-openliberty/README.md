@@ -3,12 +3,14 @@
 S2I for IBM Openliberty Java EE containers. Build on top of CentOS 7 with high configurability.
 
 | Java Version | JVM                                   |
-|--------------|---------------------------------------|
+| ------------ | ------------------------------------- |
 | 11.0.4       | HotSpot OpenJDK 64-Bit Server VM 18.9 |
+| 8            | HotSpot OpenJDK 64-Bit Server VM 18.9 |
 
-| Application Server | Application Server Version | Image Tag         |
-|--------------------|----------------------------|-------------------|
-| IBM OpenLiberty    | 19.0.0.8                   | 19.0.0.8 / latest |
+| Application Server | Application Server Version | Java Version | Image Tag               |
+| ------------------ | -------------------------- | ------------ | ----------------------- |
+| IBM OpenLiberty    | 19.0.0.8                   | 11.0.4       | 19.0.0.8-jdk11 / latest |
+| IBM OpenLiberty    | 19.0.0.8                   | 8            | 19.0.0.8-jdk8 / latest  |
 
 ## Introduction
 
@@ -58,10 +60,10 @@ Start a binary build, pointing to the `<APP_DIR>`:
 
 After the image is build and pushed to your image registry, we can view our newly built s2i using:  
 `oc get is --selector="app=<APP_NAME>"`  
-We should be able to see an image in the format:  
-  
+We should be able to see an image in the format:
+
 | NAME       | DOCKER REPO                   | TAGS   | UPDATED              |
-|------------|-------------------------------|--------|----------------------|
+| ---------- | ----------------------------- | ------ | -------------------- |
 | <APP_NAME> | .../<PROJECT_NAME>/<APP_NAME> | latest | a few seconds ago... |
 
 We can now deploy our pre-packaged image:  

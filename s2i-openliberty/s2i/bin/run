@@ -8,4 +8,4 @@
 #
 
 echo "---> Running Websphere Liberty..."
-exec wlp/bin/server run defaultServer
+exec $LIBERTY_DIR/wlp/bin/server run defaultServer
