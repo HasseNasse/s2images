@@ -48,12 +48,14 @@ Import the s2i image to your OpenShift / MiniShift image registry:
 Create a new openshift project:  
 `oc new-project <PROJECT_NAME>`
 
-#### 2.1 Binary Builds
+#### Binary Builds
+
+> The image requires a pre-built `*.war` file to be present in `<APP_DIR>/targets`.
 
 After importing the image to our cluster registry (see 'OpenShift Deployment'), we can choose to build our applications directly from source.
 
 Create an application using the s2i image:  
-`oc new-build --name=<APP_NAME> --image-stream=<PROJECT_NAME>/s2i-openliberty --binary`
+`oc new-build --name=<APP_NAME> --image-stream=<PROJECT_NAME>/s2i-openliberty:19.0.0.8-jdk11 --binary`
 
 Start a binary build, pointing to the `<APP_DIR>`:  
 `oc start-build bc/<APP_NAME> --from-dir <APP_DIR> --follow`
@@ -68,16 +70,6 @@ We should be able to see an image in the format:
 
 We can now deploy our pre-packaged image:  
 `oc new-app <PROJECT_NAME>/<APP_NAME>:latest --name <APP_NAME>`
-
-#### 2.2 Source Code Builds
-
-Alternatively, after importing the image to our cluster registry (see 'OpenShift Deployment'), we can choose to build our applications directly from source.
-
-We can also create source builds by directly pointing to an existing github repository:  
-`oc new-build <PROJECT_NAME>/s2i-openliberty~https://github.com/<GH_USER>/<APP_REPO>.git`
-
-Then after a successfull build, we declare a new app to trigger a deploy:  
-`oc new-app test-project/test-app-liberty:latest --name test-app-liberty`
 
 ## Configurability
 
