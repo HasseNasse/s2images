@@ -29,7 +29,7 @@ For an example project, see: https://github.com/HasseNasse/jakartaee-mp-archetyp
 Use the s2i CLI to create images using this builder image. You can download the CLI from this source: https://github.com/openshift/source-to-image/releases
 
 Run the following command:  
-`s2i build <APP_DIR> hassenasse/s2i-openliberty:<LIBERTY_VERSION> <APP_NAME> --copy`
+`s2i build <APP_DIR> hassenasse/s2i-openliberty:<LIBERTY_VERSION>-jdk<JDK_VERSION> <APP_NAME> --copy`
 
 _Example:_  
 `s2i build ~/dev/FruitApp hassenasse/s2i-openliberty:19.0.0.8-jdk11 fruit-app --copy`
@@ -75,7 +75,8 @@ We can now deploy our pre-packaged image:
 
 ## Configurability
 
-All liberty server configurations should be added to the `<APP_DIR>/liberty` folder. These files can include the following:
+The builder image expects a ThinWar deployable artifact in `<APP_DIR>/target/` and a couple of server-specific (optional) configuration files.
+All liberty server configurations should be added to the `<APP_DIR>/liberty/` folder. These files can include the following:
 
 | File/Folder Name     |                                                                                                                                                        Description                                                                                                                                                        |
 | -------------------- | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |

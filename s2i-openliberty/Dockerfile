@@ -1,14 +1,16 @@
-# s2i-openliberty-jdk11
-ARG FROM_IMAGE=<substituted>
+# s2i-openliberty
+ARG FROM_IMAGE
 FROM $FROM_IMAGE
 
 LABEL maintainer="Hassan Nazar <hassan.nazar94@gmail.com>"
 
 LABEL io.k8s.description="Source-to-Image for running OpenLiberty applications" \
-    io.k8s.display-name="s2i-openliberty-jdk11" \
+    io.k8s.display-name="s2i-openliberty" \
     io.openshift.expose-services="9080:http,9443:https" \
-    io.openshift.tags="builder,19.0.0.8,OpenLiberty,WLP"
+    io.openshift.tags="builder,${VERSION},OpenLiberty,WLP"
 
+ARG VERSION
+ENV LIBERTY_VERSION $VERSION
 ENV LIBERTY_SERVER_NAME defaultServer
 ENV INSTALL_DIR /opt
 ENV LIBERTY_DIR ${INSTALL_DIR}/liberty
@@ -17,7 +19,7 @@ ENV SERVER_DIR ${LIBERTY_DIR}/wlp/usr/servers/${LIBERTY_SERVER_NAME}
 ENV DEPLOYMENT_DIR ${SERVER_DIR}/dropins
 
 # Get OpenLiberty
-RUN wget https://search.maven.org/remotecontent?filepath=io/openliberty/openliberty-runtime/19.0.0.8/openliberty-runtime-19.0.0.8.zip -O ${INSTALL_DIR}/liberty.zip && \
+RUN wget "https://search.maven.org/remotecontent?filepath=io/openliberty/openliberty-runtime/$VERSION/openliberty-runtime-$VERSION.zip" -O ${INSTALL_DIR}/liberty.zip && \
     mkdir -p ${LIBERTY_DIR} && mkdir -p ${SHARED_RESOURCES_DIR} && \
     unzip ${INSTALL_DIR}/liberty.zip -d ${LIBERTY_DIR} && \
     sh ${LIBERTY_DIR}/wlp/bin/server create ${LIBERTY_SERVER_NAME} && \

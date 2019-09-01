@@ -1,0 +1,3 @@
+#Optimizing Heap size
+delete-jvm-options -client:-Xmx1024:-Xms512
+create-jvm-options -server:-Xmx2048:-Xms2048

@@ -29,7 +29,7 @@ For an example project, see: https://github.com/HasseNasse/jakartaee-mp-archetyp
 Use the s2i CLI to create images using this builder image. You can download the CLI from this source: https://github.com/openshift/source-to-image/releases
 
 Run the following command:  
-`s2i build <APP_DIR> hassenasse/s2i-payara-micro:<LIBERTY_VERSION> <APP_NAME> --copy`
+`s2i build <APP_DIR> hassenasse/s2i-payara-micro:<PAYARA_VERSION>-jdk<JDK_VERSION> <APP_NAME> --copy`
 
 _Example:_  
 `s2i build ~/dev/FruitApp hassenasse/s2i-payara-micro:5.193-jdk11 fruit-app --copy`
@@ -73,4 +73,15 @@ We can now deploy our pre-packaged image:
 
 ## Configurability
 
-...
+The builder image expects a ThinWar deployable artifact in `<APP_DIR>/target/` and a couple of server-specific (optional) configuration files. The payara configuration files should be located in `<APP_DIR>/payara/` folder. These files can include the following:
+
+| File/Folder Name   |                                                                                    Description                                                                                     |
+| ------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| asadmin-preboot    |                                    Provides a file of asadmin commands to run before booting the server (only some commands work at this point)                                    |
+| asadmin-postboot   |                                                        Provides a file of asadmin commands to run after booting the server                                                         |
+| asadmin-postdeploy |                                                  Provides a file of asadmin commands to run after all deployments have completed                                                   |
+| lib/               | Allows adding various third-party libraries to the class path of a Payara Micro instance. Use cases may include required JDBC drivers, or libraries used by multiple applications. |
+
+For more info:  
+https://docs.payara.fish/documentation/payara-micro/asadmin/pre-and-post-boot-scripts.html  
+https://docs.payara.fish/documentation/payara-micro/adding-jars.html

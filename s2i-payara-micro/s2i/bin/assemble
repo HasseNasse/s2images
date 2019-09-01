@@ -1,11 +1,7 @@
 #!/bin/bash -e
-#
-# S2I assemble script for the 's2i-payara-micro' image.
-# The 'assemble' script builds your application source so that it is ready to run.
-#
-# For more information refer to the documentation:
-#	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
-#
+
+PAYARA_CONFIG=/tmp/src/payara
+START_COMMAND="java -jar ${BASE_DIR}/${PAYARA_JAR} --deploymentDir ${DEPLOYMENT_DIR}"
 
 # If the 's2i-payara-micro' assemble script is executed with the '-h' flag, print the usage.
 if [[ "$1" == "-h" ]]; then
@@ -13,14 +9,52 @@ if [[ "$1" == "-h" ]]; then
 fi
 
 # Restore artifacts from the previous build (if they exist).
-#
 if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
-  echo "---> Restoring build artifacts..."
-  mv /tmp/artifacts/. ./
+  echo "--> Restoring build artifacts..."
+  mv /tmp/artifacts/. $DEPLOYMENT_DIR
 fi
 
-echo "---> Installing application source..."
-cp -Rf /tmp/src/. ./
+echo "--> Installing application source to ${DEPLOYMENT_DIR}..."
+cp -Rf /tmp/src/target/*.war $DEPLOYMENT_DIR
+ls -l $DEPLOYMENT_DIR
 
-echo "---> Building application from source..."
-# TODO: Add build steps for your application, eg npm install, bundle install, pip install, etc.
+echo "--> Checking lib files in ./payara/lib ..."
+if [ -f $PAYARA_CONFIG/lib/*.jar ]
+	then
+		echo "----> Libraries found in ./payara/lib, adding them to lib folder ..."
+		cp -f $PAYARA_CONFIG/lib/*.jar ${LIB_DIR} 
+    START_COMMAND="${START_COMMAND} --addLibs ${LIB_DIR}"
+	else
+		echo "----> No libraries found in ./payara/lib"
+fi
+
+echo "--> Checking pre-boot file ..."
+if [ -f $PAYARA_CONFIG/asadmin-preboot ]
+  then
+    echo "----> pre-boot file found, adding --prebootcommandfile argument to start script ..."
+    START_COMMAND="${START_COMMAND} --prebootcommandfile ${PAYARA_CONFIG}/asadmin-preboot"
+  else
+    echo "----> No pre-boot file found ..."
+fi
+
+echo "--> Checking post-boot file ..."
+if [ -f $PAYARA_CONFIG/asadmin-postboot ]
+  then
+    echo "----> post-boot file found, adding --postbootcommandfile argument to start script ..."
+    START_COMMAND="${START_COMMAND} --postbootcommandfile ${PAYARA_CONFIG}/asadmin-postboot"
+  else
+    echo "----> No post-boot file found ..."
+fi
+
+echo "--> Checking post-deploy file ..."
+if [ -f $PAYARA_CONFIG/asadmin-postdeploy ]
+  then
+    echo "----> post-deploy file found, adding --postdeploycommandfile argument to start script ..."
+    START_COMMAND="${START_COMMAND} --postdeploycommandfile ${PAYARA_CONFIG}/asadmin-postdeploy"
+  else
+    echo "----> No post-deploy file found ..."
+fi
+
+echo -e "-------> Final payara start-command is: ${START_COMMAND}"
+echo $START_COMMAND > ${BASE_DIR}/startup.sh
+chmod a+rwx ${BASE_DIR}/startup.sh
