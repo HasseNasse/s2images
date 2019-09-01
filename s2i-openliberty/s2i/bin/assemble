@@ -1,0 +1,36 @@
+#!/bin/bash -e
+#
+# S2I assemble script for the 'openliberty-centos7' image.
+# The 'assemble' script builds your application source so that it is ready to run.
+#
+# For more information refer to the documentation:
+#	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
+#
+
+# If the 'openliberty-centos7' assemble script is executed with the '-h' flag, print the usage.
+if [[ "$1" == "-h" ]]; then
+	exec /usr/libexec/s2i/usage
+fi
+
+# Restore artifacts from the previous build (if they exist).
+#
+if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
+  echo "---> Restoring build artifacts..."
+  mv /tmp/artifacts/. ./
+fi
+
+echo "---> Installing application source..."
+cp -Rf /tmp/src/. ./
+
+echo "---> Building application from source..."
+/opt/app-root/maven/bin/mvn clean install
+
+echo "---> Applying server config [server.env, bootstrap.properties, jvm.options etc]..."
+cat liberty/server.xml
+cp -r liberty/* /opt/app-root/src/wlp/usr/servers/defaultServer/
+
+echo "---> Adding shared server resources from ../liberty/resources/ folder ..."
+cp -r liberty/resources/* /opt/app-root/src/wlp/usr/shared/resources/
+
+echo "---> Adding ThinWar deployment to dropins"
+cp target/*.war  /opt/app-root/src/wlp/usr/servers/defaultServer/dropins
