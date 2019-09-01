@@ -1,6 +1,8 @@
 # S2I for IBM OpenLiberty
 
-S2I for IBM Openliberty Java EE containers. Build on top of CentOS 7 with high configurability.
+S2I for IBM Openliberty Java EE containers. Build on top of CentOS 7 with high configurability.  
+https://github.com/HasseNasse/s2images/tree/master/s2i-openliberty
+https://hub.docker.com/r/hassenasse/s2i-openliberty
 
 | Java Version | JVM                                   |
 | ------------ | ------------------------------------- |
