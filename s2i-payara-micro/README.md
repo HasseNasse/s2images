@@ -29,7 +29,7 @@ For an example project, see: https://github.com/HasseNasse/jakartaee-mp-archetyp
 Use the s2i CLI to create images using this builder image. You can download the CLI from this source: https://github.com/openshift/source-to-image/releases
 
 Run the following command:  
-`s2i build <APP_DIR> hassenasse/s2i-payara-micro:<PAYARA_VERSION>-jdk<JDK_VERSION> <APP_NAME> --copy`
+`s2i build <APP_DIR> hassenasse/s2i-payara-micro:<PAYARA_VERSION> <APP_NAME> --copy`
 
 _Example:_  
 `s2i build ~/dev/FruitApp hassenasse/s2i-payara-micro:5.193-jdk11 fruit-app --copy`
@@ -37,7 +37,7 @@ _Example:_
 This command will create a local imagestream which can be inspected using `docker image ls`, this imagestream will have the name `<APP_NAME>`.
 
 After a successfull build, the container can be initiated using the following command:  
-`docker container run -d -p 9080:9080 -p 9443:9443 --name <APP_NAME> <APP_NAME>:latest`
+`docker container run -d -p 8080:8080 -p 8181:8181 --name <APP_NAME> <APP_NAME>:latest`
 
 ### 2. OpenShift Deployment
 
