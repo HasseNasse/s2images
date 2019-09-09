@@ -1,7 +1,7 @@
-VERSION = 5.193
-IMAGE_NAME = s2i-payara-micro
-FROM_JDK8 = hassenasse/payara-micro:$(VERSION)-jdk8
-FROM_JDK11 = hassenasse/payara-micro:$(VERSION)-jdk11
+VERSION = 19.0.0.8
+IMAGE_NAME = openliberty
+FROM_JDK8 = hassenasse/java8-centos7:latest
+FROM_JDK11 = hassenasse/java11-centos7:latest
 
 .PHONY: build
 build-jdk8:

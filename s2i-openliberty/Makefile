@@ -1,7 +1,7 @@
 VERSION = 19.0.0.8
 IMAGE_NAME = s2i-openliberty
-FROM_JDK8 = hassenasse/java8-centos7:latest
-FROM_JDK11 = hassenasse/java11-centos7:latest
+FROM_JDK8 = hassenasse/openliberty:$(VERSION)-jdk8
+FROM_JDK11 = hassenasse/openliberty:$(VERSION)-jdk11
 
 .PHONY: build
 build-jdk8:

@@ -1,6 +1,5 @@
 #!/bin/bash -e
 
-PAYARA_CONFIG=/tmp/src/payara
 START_COMMAND="--deploymentDir ${DEPLOYMENT_DIR}"
 
 # If the 's2i-payara-micro' assemble script is executed with the '-h' flag, print the usage.

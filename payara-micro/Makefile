@@ -1,5 +1,5 @@
-VERSION = 19.0.0.8
-IMAGE_NAME = dev-openliberty
+VERSION = 5.193
+IMAGE_NAME = payara-micro
 FROM_JDK8 = hassenasse/java8-centos7:latest
 FROM_JDK11 = hassenasse/java11-centos7:latest
 
