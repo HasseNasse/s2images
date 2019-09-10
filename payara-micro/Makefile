@@ -5,7 +5,7 @@ FROM_JDK11 = hassenasse/java11-centos7:latest
 
 .PHONY: build
 build-jdk8:
-	docker build -t $(IMAGE_NAME)-jdk8 \
+	docker build -t $(IMAGE_NAME)-jdk1.8 \
 	--build-arg FROM_IMAGE=$(FROM_JDK8) \
 	--build-arg VERSION=$(VERSION) .
 
@@ -20,12 +20,12 @@ build:
 
 .PHONY: deploy
 deploy-jdk8:
-	docker build -t $(IMAGE_NAME)-jdk8 \
+	docker build -t $(IMAGE_NAME)-jdk1.8 \
 	--build-arg FROM_IMAGE=$(FROM_JDK8) \
 	--build-arg VERSION=$(VERSION) .
 	
-	docker tag $(IMAGE_NAME)-jdk8:latest hassenasse/$(IMAGE_NAME):$(VERSION)-jdk8
-	docker push hassenasse/$(IMAGE_NAME):$(VERSION)-jdk8
+	docker tag $(IMAGE_NAME)-jdk1.8:latest hassenasse/$(IMAGE_NAME):$(VERSION)-jdk1.8
+	docker push hassenasse/$(IMAGE_NAME):$(VERSION)-jdk1.8
 
 deploy-jdk11:
 	docker build -t $(IMAGE_NAME)-jdk11 \
