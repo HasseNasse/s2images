@@ -42,9 +42,6 @@ RUN wget --no-verbose -O payara.zip https://s3-eu-west-1.amazonaws.com/payara.fi
     chown payara:payara payara.zip && \
     unzip -qq payara.zip -d ./ && \
     mv payara*/ appserver && \
-    # Configure the password file for configuring Payara
-    echo "AS_ADMIN_PASSWORD=\nAS_ADMIN_NEWPASSWORD=${ADMIN_PASSWORD}" > ${HOME_DIR}/tmpfile && \	
-    echo "AS_ADMIN_PASSWORD=${ADMIN_PASSWORD}" >> ${PASSWORD_FILE} && \
     # Cleanup unused files
     rm -rf \
     /tmp/tmpFile \
